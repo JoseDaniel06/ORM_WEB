@@ -1,0 +1,652 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="main.master.cs" Inherits="ORMWeb.main" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxTreeList.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.ASPxTreeList" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>ORM Web versión</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <link href="Content/Estilos.css" rel="stylesheet" />
+
+        <!-- JS SCRIPTS -->
+
+    <!-- jQuery 3 -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
+
+    <script type="text/javascript">
+        function ShowLoadingPanel() {
+            LoadingPanel.Show();
+        }
+
+        function HideLoadingPanel() {
+            LoadingPanel.Hide();
+        }
+
+        function actualizaFavState() {
+            CallbackFavorite.PerformCallback(0);
+        } 
+
+        function refreshbtnDocFavorito2(isFavorite) {
+            var buttonElement = btnDocFavorito.GetMainElement();
+            if (isFavorite == '1') {
+                buttonElement.setAttribute('style', 'float: left; margin-right: 8px; margin-top: 8px; margin-left: 12px; margin-bottom: 8px; color: #18bc9c !important; font-size: 20px;');
+            }
+            else {
+                buttonElement.setAttribute('style', 'float: left; margin-right: 8px; margin-top: 8px; margin-left: 12px; margin-bottom: 8px; color: gray !important; font-size: 20px;');
+            }
+        }
+
+        function refreshbtnDocFavorito(s, e) {
+            var buttonElement = btnDocFavorito.GetMainElement();
+            if (e.result == '1') {
+                buttonElement.setAttribute('style', 'float: left; margin-right: 8px; margin-top: 8px; margin-left: 12px; margin-bottom: 8px; color: #18bc9c !important; font-size: 20px;');
+            }
+            else {
+                buttonElement.setAttribute('style', 'float: left; margin-right: 8px; margin-top: 8px; margin-left: 12px; margin-bottom: 8px; color: gray !important; font-size: 20px;');
+            }
+        }
+
+        function ShowPopup(msg) {
+            console.log(msg);
+            $('#myModal').modal('show');
+        }
+
+        function ConsoleLog(msg) {
+            console.log(msg);
+        }
+    </script>
+
+    <style>
+        .modal {
+            text-align: center;
+            padding: 0 !important;
+        }
+
+            .modal:before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -4px;
+            }
+
+        .modal-dialog {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .vertical-align {
+            display: flex;
+            align-items: center;
+        }
+
+        button.btn {
+            height: 50px;
+            margin: 0;
+            padding: 0 20px;
+            vertical-align: middle;
+            background: #de615e;
+            border: 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 50px;
+            color: #fff;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            text-shadow: none;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            -o-transition: all .3s;
+            -moz-transition: all .3s;
+            -webkit-transition: all .3s;
+            -ms-transition: all .3s;
+            transition: all .3s;
+        }
+
+            button.btn:hover {
+                opacity: 0.6;
+                color: #fff;
+            }
+
+            button.btn:active {
+                outline: 0;
+                opacity: 0.6;
+                color: #fff;
+                -moz-box-shadow: none;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+            button.btn:focus {
+                outline: 0;
+                opacity: 0.6;
+                background: #de615e;
+                color: #fff;
+            }
+
+            button.btn:active:focus, button.btn.active:focus {
+                outline: 0;
+                opacity: 0.6;
+                background: #de615e;
+                color: #fff;
+            }
+
+        .clsTreeLisNoBorder .dxtlDataTable {
+            border: none;
+        }
+
+        .noStyle
+        {
+            text-decoration: none !important;
+            color: black !important;
+        }
+
+        .noStyle span
+        {
+            display: none;
+        }
+    </style>
+
+  <asp:ContentPlaceHolder ID="head" runat="server">
+
+  </asp:ContentPlaceHolder>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <form id="form1" runat="server">
+        <div class="wrapper">
+
+            <!-- Main Header -->
+            <header class="main-header">
+
+                <!-- Logo -->
+                <a href="#" class="logo" style="background-color: #2c3e50;">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>ORM</b></span>
+                    <!-- logo for regular state and mobile devices -->
+                    <div class="row">
+                        <img src="img/icono.png" style="width: 40px;display: unset;" />
+                        <span class="logo-lg" style="display: unset;"><b>ORM</b> Web</span>
+                    </div>
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation" style="background-color: #2c3e50;">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <span class="navbar-brand">
+                        <asp:LinkButton runat="server" ID="btnFavorite"  Visible="False" ToolTip="Marcar/Desmarcar este documento como favorito"
+                            onclientclick="actualizaFavState()" > <i class="far fa-star"></i>
+                        </asp:LinkButton>
+                        &nbsp;
+                        <asp:Label ID="lblCaption" runat="server" Text="" style="color: #18bc9c;"></asp:Label>
+                    </span>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
+                                <!-- Menu Toggle Button -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                    <asp:Label ID="lblNombreUsuario" runat="server" Text="" CssClass="hidden-xs" style="color: #18bc9c;"></asp:Label>
+                                </a>
+                                <!--<ul class="dropdown-menu">
+                                    <li class="user-footer">
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-default btn-flat" onclick="return false;">Cambio de contraseña</a>
+                                        </div>
+                                    </li>
+                                </ul> -->
+                            </li>
+                            <li>
+                               <img class="img-circle" src="img/user.jpg" style="width: 36px;height:36px;margin-right:10px;margin-top:5px" id="imgProfile">
+                            </li>
+                            <!-- Control Sidebar Toggle Button 
+                            <li>
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>-->
+                            <li>
+                                <asp:LinkButton ID="lnkCerrarSesion" class="btn btn-success btn-sm"  style="color: #ffffff; background-color: #18bc9c; border-color: #18bc9c;  margin-top: 9px; margin-right: 10px;padding-top: 5px;padding-bottom: 5px;" OnClick="lnkCerrarSesion_Click" runat="server">Cerrar Sesión</asp:LinkButton>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header" style="font-size: 16px;color: #18bc9c;">Objetos de Información</li>
+                        <!-- Optionally, you can add icons to the links -->
+                        <li id="menuConsultas" class="treeview">
+                            <a href="#"><i class="fa fa-table"></i><span style="font-size: 18px;">Consultas</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul id="listaConsultasDefault" class="treeview-menu" runat="server">
+                                <li><asp:LinkButton ID='ListadoConsultas' runat='server' OnClick="ShowDirectorioConsultasORM" AutoPostBack="False" > Listado de Consultas</asp:LinkButton></li>
+
+                                <li><asp:LinkButton ID='Consulta1' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 1</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta2' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 2</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta3' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 3</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta4' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 4</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta5' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 5</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta6' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 6</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta7' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 7</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta8' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 8</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta9' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 9</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta10' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 10</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta11' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 11</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta12' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 12</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta13' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 13</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta14' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 14</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta15' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 15</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta16' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 16</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta17' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 17</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta18' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 18</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta19' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 19</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Consulta20' OnClick='lnkbtnConsulta_Click' runat='server'> Consulta 20</asp:LinkButton></li>
+                            </ul>
+                        </li>
+                        <li id="menuTableros" class="treeview">
+                            <a href="#"><i class="fa fa-clipboard"></i><span style="font-size: 18px;">Tableros de Control</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul id="listaTablerosDefault" class="treeview-menu"  runat="server">
+                                <li><asp:LinkButton ID='ListadoTableros' runat='server' OnClick="ShowDirectorioTablerosORM" AutoPostBack="False"> Listado de Tableros</asp:LinkButton></li>
+
+                                <li><asp:LinkButton ID='Tablero1' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 1</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero2' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 2</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero3' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 3</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero4' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 4</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero5' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 5</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero6' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 6</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero7' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 7</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero8' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 8</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero9' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 9</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero10' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 10</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero11' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 11</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero12' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 12</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero13' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 13</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero14' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 14</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero15' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 15</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero16' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 16</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero17' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 17</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero18' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 18</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero19' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 19</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Tablero20' OnClick='lnkbtnTablero_Click' runat='server'> Tablero 20</asp:LinkButton></li>
+                            </ul>
+                        </li>
+                        <li id="menuReportes" class="treeview">
+                            <a href="#"><i class="fa fa-file"></i><span style="font-size: 18px;">Reportes</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul id="listaReportesDefault" class="treeview-menu"  runat="server">
+                                <li><asp:LinkButton ID='ListadoReportes' runat='server' OnClick="ShowDirectorioReportesORM" AutoPostBack="False"> Listado de Reportes</asp:LinkButton></li>
+
+                                <li><asp:LinkButton ID='Reporte1' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 1</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte2' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 2</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte3' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 3</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte4' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 4</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte5' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 5</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte6' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 6</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte7' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 7</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte8' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 8</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte9' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 9</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte10' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 10</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte11' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 11</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte12' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 12</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte13' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 13</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte14' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 14</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte15' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 15</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte16' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 16</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte17' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 17</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte18' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 18</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte19' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 19</asp:LinkButton></li>
+                                <li><asp:LinkButton ID='Reporte20' OnClick='lnkbtnReporte_Click' runat='server'> Reporte 20</asp:LinkButton></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul id="logo_sidebar_bottom" class="nav nav-sidebar sidebar-menu">
+                        <li class="header" style="background-color: #222d32; padding-left: 0px; padding-right: 0px;">
+                            <a id="logooptima" href="http://optima.net.co/" target="_blank" style="background-color: #222d32;padding-left: 0px;"><img src="img/OPT-Corp.-blanco-peq.png" style="width:180px;"/></a>
+                        </li>
+                    </ul>
+                    <!-- /.sidebar-menu -->
+
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <!-- <section class="content-header">
+                </section>-->
+
+                <!-- Main content -->
+                <section class="content container-fluid" style="padding: 0px;">
+                    <div  runat="server">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+                        </asp:ContentPlaceHolder>
+
+                        <dx:ASPxPopupControl ID="pcDirectorioORM" runat="server" Width="900" CloseAction="CloseButton" CloseOnEscape="true" Modal="True"
+                            PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="Middle" ClientInstanceName="pcDirectorioORM"
+                            HeaderText="Directorios" AllowDragging="True" PopupAnimationType="Slide" EnableViewState="False" AutoUpdatePosition="true" Top="130">
+                            <ContentCollection>
+                                <dx:PopupControlContentControl runat="server">
+                                    <dx:ASPxPanel ID="Panel1" runat="server" DefaultButton="btnAceptar">
+                                        <PanelCollection>
+                                            <dx:PanelContent runat="server">
+                                                <dx:ASPxPanel ID="TopPanel" runat="server" CssClass="topPanel">
+                                                    <PanelCollection>
+                                                        <dx:PanelContent runat="server" SupportsDisabledAttribute="True">
+                                                            <dx:ASPxFormLayout ID="formLayout" runat="server" AlignItemCaptionsInAllGroups="True" UseDefaultPaddings="false" Width="100%">
+                                                                <Items>
+                                                                    <dx:LayoutItem Caption="Ruta">
+                                                                        <LayoutItemNestedControlCollection>
+                                                                            <dx:LayoutItemNestedControlContainer runat="server" SupportsDisabledAttribute="True">
+                                                                                <dx:ASPxTextBox ID="txtRuta" ClientInstanceName="txtRuta" runat="server" Width="100%" ReadOnly="true">
+                                                                                </dx:ASPxTextBox>
+                                                                            </dx:LayoutItemNestedControlContainer>
+                                                                        </LayoutItemNestedControlCollection>
+                                                                    </dx:LayoutItem>
+                                                                </Items>
+                                                            </dx:ASPxFormLayout>
+                                                        </dx:PanelContent>
+                                                    </PanelCollection>
+                                                </dx:ASPxPanel>
+                                                <dx:ASPxPanel ID="CenterPanel" runat="server" CssClass="centerPanel">
+                                                    <PanelCollection>
+                                                        <dx:PanelContent runat="server" SupportsDisabledAttribute="True">
+                                                            <dx:ASPxSplitter ID="ASPxSplitter1" runat="server" Height="400px">
+                                                                <Panes>
+                                                                    <dx:SplitterPane Size="35%">
+                                                                        <ContentCollection>
+                                                                            <dx:SplitterContentControl runat="server">
+                                                                                <dx:ASPxTreeList ID="trlDirectorio" ClientInstanceName="trlDirectorio" runat="server" AutoGenerateColumns="True" Width="100%" Border-BorderStyle="None" CssClass="clsTreeLisNoBorder"
+                                                                                    OnCustomDataCallback="trlDirectorio_CustomDataCallback">
+                                                                                    <Columns>
+                                                                                        <dx:TreeListDataColumn FieldName="NOMBRE" Caption="DIRECTORIO" VisibleIndex="0" SortIndex="0" SortOrder="Ascending"></dx:TreeListDataColumn>
+                                                                                    </Columns>
+                                                                                    <Settings ShowColumnHeaders="False" />
+                                                                                    <SettingsBehavior AllowEllipsisInText="True" AllowFocusedNode="True" AutoExpandAllNodes="True" ExpandCollapseAction="NodeDblClick" />
+                                                                                    <Settings ScrollableHeight="370" SuppressOuterGridLines="true" VerticalScrollBarMode="Visible" ShowRoot="False" />
+                                                                                    <ClientSideEvents CustomDataCallback="function(s, e) { txtRuta.SetText(e.result); }"
+                                                                                        FocusedNodeChanged="function(s, e) { 
+                                                                                            var key = trlDirectorio.GetFocusedNodeKey();
+                                                                                            trlDirectorio.PerformCustomDataCallback(key);
+                                                                                            trlDocumentos.SetFocusedNodeKey(null);
+                                                                                            trlDocumentos.PerformCustomCallback(key);
+                                                                                        }" />
+                                                                                </dx:ASPxTreeList>
+                                                                            </dx:SplitterContentControl>
+                                                                        </ContentCollection>
+                                                                    </dx:SplitterPane>
+                                                                    <dx:SplitterPane>
+                                                                        <ContentCollection>
+                                                                            <dx:SplitterContentControl runat="server">
+                                                                                <dx:ASPxTreeList ID="trlDocumentos" ClientInstanceName="trlDocumentos" runat="server" AutoGenerateColumns="True" Width="100%" Border-BorderStyle="None" CssClass="clsTreeLisNoBorder"
+                                                                                    OnCustomCallback="trlDocumentos_CustomCallback" OnCustomDataCallback="trlDocumentos_CustomDataCallback" SettingsResizing-ColumnResizeMode="Control"
+                                                                                    >
+                                                                                    <Columns>
+                                                                                        <dx:TreeListDataColumn FieldName="NOMBRE" Caption="Documento" VisibleIndex="0" Width="250" SortIndex="0" SortOrder="Ascending"></dx:TreeListDataColumn>
+                                                                                        <dx:TreeListDataColumn FieldName="FECHA" Caption="Fecha" VisibleIndex="1" Width="190"></dx:TreeListDataColumn>
+                                                                                        <dx:TreeListDataColumn FieldName="AUTOR" Caption="Autor" VisibleIndex="2" Width="120"></dx:TreeListDataColumn>
+                                                                                        <dx:TreeListDataColumn FieldName="FECHA_MOD" Caption="Fecha Mod." VisibleIndex="3" Width="190"></dx:TreeListDataColumn>
+                                                                                        <dx:TreeListDataColumn FieldName="AUTOR_MOD" Caption="Autor Mod" VisibleIndex="4" Width="120"></dx:TreeListDataColumn>
+                                                                                    </Columns>
+                                                                                    <Settings ShowColumnHeaders="True" />
+                                                                                    <SettingsBehavior AllowEllipsisInText="True" AllowFocusedNode="True" AutoExpandAllNodes="True" ExpandCollapseAction="NodeDblClick" />
+                                                                                    <Settings ScrollableHeight="325" SuppressOuterGridLines="true" VerticalScrollBarMode="Visible" ShowRoot="False" HorizontalScrollBarMode="Visible" />
+                                                                                    <ClientSideEvents 
+                                                                                        CustomDataCallback="refreshbtnDocFavorito"
+                                                                                        FocusedNodeChanged="function(s, e) { 
+                                                                                            var key = trlDocumentos.GetFocusedNodeKey();
+                                                                                            trlDocumentos.PerformCustomDataCallback(key);
+                                                                                        }"
+                                                                                        NodeDblClick="function(s, e) { 
+                                                                                            pcDirectorioORM.Hide();
+                                                                                            btnAceptar.DoClick();
+                                                                                        }" />
+                                                                                </dx:ASPxTreeList>
+                                                                            </dx:SplitterContentControl>
+                                                                        </ContentCollection>
+                                                                    </dx:SplitterPane>
+                                                                </Panes>
+                                                            </dx:ASPxSplitter>
+                                                        </dx:PanelContent>
+                                                    </PanelCollection>
+                                                </dx:ASPxPanel>
+                                                <dx:ASPxPanel ID="BottomPanel" runat="server" CssClass="bottomPanel">
+                                                    <PanelCollection>
+                                                        <dx:PanelContent runat="server" SupportsDisabledAttribute="True">
+                                                            <dx:ASPxCallback ID="ASPxCallbackFavorite" runat="server" ClientInstanceName="CallbackFavorite"  OnCallback="ASPxCallbackFavorite_Callback"></dx:ASPxCallback>
+                                                            <dx:ASPxButton ID="btnDocFavorito" ClientInstanceName="btnDocFavorito" runat="server" Text="" Width="20px" AutoPostBack="False" Style="float: left; margin-right: 8px; margin-top: 12px; margin-left: 12px; margin-bottom: 8px; color: gray !important; font-size: 20px;" 
+                                                                 CssPostfix="none" RenderMode="Link" CssClass="far fa-star noStyle">
+                                                                <ClientSideEvents Click="function(s, e) { var key = trlDocumentos.GetFocusedNodeKey();
+                                                                                if(key !== null && key !== '') {
+                                                                                    CallbackFavorite.PerformCallback(key);
+                                                                                }
+                                                                    }" />
+                                                            </dx:ASPxButton>
+                                                            <dx:ASPxButton ID="btnCancelar" runat="server" Text="Cancelar" Width="80px" AutoPostBack="False" Style="float: right; margin-right: 8px; margin-top: 8px; margin-bottom: 8px;">
+                                                                <ClientSideEvents Click="function(s, e) { trlDocumentos.SetFocusedNodeKey(null); pcDirectorioORM.Hide(); }" />
+                                                            </dx:ASPxButton>
+                                                            <dx:ASPxButton ID="btnAceptar" ClientInstanceName="btnAceptar" runat="server" Text="Aceptar" Width="80px" AutoPostBack="False" Style="float: right; margin-right: 8px; margin-top: 8px; margin-bottom: 8px;" OnClick="btnAceptar_Click">
+                                                                <ClientSideEvents Click="function(s, e) {
+                                                                                pcDirectorioORM.Hide();
+                                                                                ShowLoadingPanel();
+                                                                                var key = trlDocumentos.GetFocusedNodeKey();
+                                                                                if(key !== null && key !== '') {
+                                                                                    e.processOnServer = true;
+                                                                                }
+                                                                                else {
+                                                                                    ShowMensajeError();
+                                                                                }
+                                                                            }" />
+                                                            </dx:ASPxButton>
+                                                        </dx:PanelContent>
+                                                    </PanelCollection>
+                                                </dx:ASPxPanel>
+                                            </dx:PanelContent>
+                                        </PanelCollection>
+                                    </dx:ASPxPanel>
+                                </dx:PopupControlContentControl>
+                            </ContentCollection>
+                            <ContentStyle>
+                                <Paddings PaddingBottom="5px" />
+                            </ContentStyle>
+                        </dx:ASPxPopupControl>
+
+                        <dx:ASPxLoadingPanel ID="LoadingPanel" runat="server" ClientInstanceName="LoadingPanel"
+                            Modal="True">
+                        </dx:ASPxLoadingPanel>
+
+                    </div>
+
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <!-- To the right -->
+                <div class="pull-right hidden-xs">
+                    <asp:Label ID="lblErrorMsg" runat="server" Text=""></asp:Label>
+                </div>
+                <!-- Default to the left -->
+                <strong>Copyright &copy; 2011 -  <asp:Label ID="lblAño" runat="server" Text=""></asp:Label><a href="#">  Optima Corporation</a></strong> All rights reserved.
+ 
+            </footer>
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Create the tabs -->
+                <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                    <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- Home tab content -->
+                    <div class="tab-pane active" id="control-sidebar-home-tab">
+                        <h3 class="control-sidebar-heading">Recent Activity</h3>
+                        <ul class="control-sidebar-menu">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                                    <div class="menu-info">
+                                        <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                        <p>Will be 23 on April 24th</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.control-sidebar-menu -->
+
+                        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                        <ul class="control-sidebar-menu">
+                            <li>
+                                <a href="javascript:;">
+                                    <h4 class="control-sidebar-subheading">Custom Template Design
+               
+                                        <span class="pull-right-container">
+                                            <span class="label label-danger pull-right">70%</span>
+                                        </span>
+                                    </h4>
+
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.control-sidebar-menu -->
+
+                    </div>
+                    <!-- /.tab-pane -->
+                    <!-- Stats tab content -->
+                    <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                    <!-- /.tab-pane -->
+                    <!-- Settings tab content -->
+                    <div class="tab-pane" id="control-sidebar-settings-tab">
+                        <form method="post">
+                            <h3 class="control-sidebar-heading">General Settings</h3>
+
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                    Report panel usage
+             
+                                    <input type="checkbox" class="pull-right" checked>
+                                </label>
+
+                                <p>
+                                    Some information about this general settings option
+           
+                                </p>
+                            </div>
+                            <!-- /.form-group -->
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+            </aside>
+            <!-- /.control-sidebar -->
+            <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- ./wrapper -->
+
+
+    </form>
+
+    <!-- Modal Popup -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-danger" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #ff3547 !important; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: 0; color: #fff !important;">
+                    <button type="button" class="close" data-dismiss="modal" style="color: #fff;  opacity: 1.0;">
+                        &times;</button>
+                    <h4 class="modal-title" style="text-align:left">
+                        <asp:Label ID="lblTitle" runat="server" />
+                    </h4>
+                </div>
+                <div class="modal-body" style="background-color: #fff !important; color: #888 !important;">
+                    <div class="row vertical-align">
+                        <div class="col-sm-3">
+                            <p></p>
+                            <p class="text-center">
+                                <i class="fas fa-times fa-5x"></i>
+                            </p>
+                        </div>
+
+                        <div class="col-sm-9">
+                            <strong><asp:Label ID="lblMessage" runat="server" style="font-size:20px;" /></strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: #fff !important; color: #888 !important; border-top: 1px solid #e5e5e5;">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

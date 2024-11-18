@@ -1,0 +1,11 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxGantt" Assembly="DevExpress.Web.ASPxGantt.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxGantt runat="server">
+    <Styles CssFilePath="~/App_Themes/DevEx/{0}/styles.css" CssPostfix="DevEx">
+    </Styles>
+    <Images SpriteCssFilePath="~/App_Themes/DevEx/{0}/sprite.css">
+    </Images>
+    <Settings SuppressOuterGridLines="true" />
+    <SettingsPager CurrentPageNumberFormat="{0}" />
+</dx:ASPxGantt>

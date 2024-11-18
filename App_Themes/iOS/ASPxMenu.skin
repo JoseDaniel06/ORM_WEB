@@ -1,0 +1,19 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxMenu runat="server" AutoSeparators="RootOnly" ItemSpacing="0px" ShowSubMenuShadow="False" SpriteCssFilePath="{0}/sprite.css"  CssPostfix="iOS" CssFilePath="{0}/styles.css">
+</dx:ASPxMenu>
+
+<dx:ASPxMenu runat="server" SkinID="MenuButtons" SpriteCssFilePath="~/App_Themes/iOS/{0}/sprite.css"  CssFilePath="~/App_Themes/iOS/{0}/styles.css"
+         AutoSeparators="None" ItemSpacing="5px" ShowPopOutImages="True" CssPostfix="iOS" CssClass="menuButtons menuButtons_iOS" SeparatorHeight="0px">
+    <Border BorderWidth="0px" />
+    <ItemStyle DropDownButtonSpacing="11px"></ItemStyle>
+    <RootItemSubMenuOffset X="-1" LastItemX="-1" FirstItemX="-1"></RootItemSubMenuOffset>
+    <SubMenuItemStyle Wrap="False"></SubMenuItemStyle>
+</dx:ASPxMenu>
+<dx:ASPxMenu runat="server" SkinID="MenuLinks" CssFilePath="~/App_Themes/iOS/{0}/styles.css" ItemSpacing="0px" ShowPopOutImages="True" 
+    CssPostfix="iOS" SpriteCssFilePath="~/App_Themes/iOS/{0}/sprite.css"  SeparatorColor="#AECAF0" 
+    CssClass="menuLinks_iOS">
+</dx:ASPxMenu>
+
+

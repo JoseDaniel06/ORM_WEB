@@ -1,0 +1,16 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxGantt" Assembly="DevExpress.Web.ASPxGantt.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxGantt runat="server">
+    <Settings SuppressOuterGridLines="true" />
+    <Styles CssFilePath="~/App_Themes/PlasticBlue/{0}/styles.css" CssPostfix="PlasticBlue">
+        <CustomizationWindowContent VerticalAlign="Top" />
+    </Styles>
+    <Images SpriteCssFilePath="~/App_Themes/PlasticBlue/{0}/sprite.css">
+    </Images>
+    <SettingsPager ShowDefaultImages="False" CurrentPageNumberFormat="{0}">
+        <AllButton Text="All"></AllButton>
+        <NextPageButton ShowDefaultText="True" TextFormatString="{0} &gt;"></NextPageButton>
+        <PrevPageButton ShowDefaultText="True" TextFormatString="&lt; {0}"></PrevPageButton>
+    </SettingsPager>
+</dx:ASPxGantt>

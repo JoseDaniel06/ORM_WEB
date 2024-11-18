@@ -1,0 +1,30 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxGantt" Assembly="DevExpress.Web.ASPxGantt.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxGantt runat="server" CssFilePath="~/App_Themes/MetropolisBlue/{0}/styles.css" CssPostfix="MetropolisBlue">
+    <Settings ShowTreeLines="False" SuppressOuterGridLines="true" />
+
+    <SettingsPager CurrentPageNumberFormat="{0}">
+        <PageSizeItemSettings ShowPopupShadow="False" />
+    </SettingsPager>
+
+    <Images SpriteCssFilePath="~/App_Themes/MetropolisBlue/{0}/sprite.css" />
+
+    <Styles CssPostfix="MetropolisBlue" CssFilePath="~/App_Themes/MetropolisBlue/{0}/styles.css" />
+
+    <StylesPager>
+        <Pager ItemSpacing="1px" Spacing="1px" />
+    </StylesPager>
+
+    <StylesEditors>
+        <Calendar>
+            <Border BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" />
+        </Calendar>
+    </StylesEditors>
+    <SettingsCustomizationWindow PopupWidth="220px" />
+    <SettingsPopup>
+        <HeaderFilter MinWidth="230px" />
+        <CustomizationWindow MinWidth="240px" MinHeight="230px"  />
+    </SettingsPopup>
+</dx:ASPxGantt>
+

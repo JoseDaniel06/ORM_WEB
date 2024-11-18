@@ -1,0 +1,22 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v20.1, Version=20.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxVerticalGrid runat="server" CssFilePath="{0}/styles.css" CssPostfix="Office365">
+<SettingsPager CurrentPageNumberFormat="{0}">
+<PageSizeItemSettings ShowPopupShadow="true" />
+</SettingsPager>
+<Images SpriteCssFilePath="{0}/sprite.css"  />
+<Styles CssPostfix="Office365" CssFilePath="{0}/styles.css" IndentWidth="32" />
+<StylesPager>
+<Pager ItemSpacing="0px" Spacing="0px" />
+</StylesPager>
+<StylesEditors>
+<Calendar>
+<Border BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" />
+</Calendar>
+</StylesEditors>
+<SettingsPopup>
+<HeaderFilter MinWidth="230px" MinHeight="250px"></HeaderFilter>
+</SettingsPopup>
+</dx:ASPxVerticalGrid>
+
